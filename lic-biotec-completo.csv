@@ -1,0 +1,69 @@
+Sigla;Nombre;Bloque;Horas;Creditos;Requisitos;Correquisitos;Disciplina
+CI0200;Examen diagnostico;0;0;0;No posee requisitos;No posee correquisitos;Ciencias del lenguaje
+CI0202;Ingles basico;0;3;2;No posee requisitos;No posee correquisitos;Ciencias del lenguaje
+BI1101;Biologia general;1;9;3;No posee requisitos;BI1102;Biologia
+BI1102;Laboratorio de biologia general;1;3;1;No posee requisitos;BI1101;Biologia
+CI1106;Comunicacion escrita;1;6;2;No posee requisitos;No posee correquisitos;Ciencias del lenguaje
+CS1502;Introduccion a la tecnica ciencia y tecnologia;1;2;1;No posee requisitos;No posee correquisitos;Ciencias sociales
+FI1105;Fisica para la biotecnologia;1;4;3;No posee requisitos;No posee correquisitos;Fisica
+IB1601;Introduccion a la biotecnologia;1;3;2;No posee requisitos;BI1101,BI1102;Biotecnologia
+MA0101;Matematica general;1;5;2;No posee requisitos;No posee correquisitos;Matematica
+QU1102;Laboratorio de quimica basica i;1;2;1;No posee requisitos;QU1106;Quimica
+QU1106;Quimica basica i;1;4;3;No posee requisitos;QU1102;Quimica
+SE1100;Actividad cultural i;1;2;0;No posee requisitos;No posee correquisitos;Cultura y deporte
+CI1107;Comunicacion oral;2;3;1;No posee requisitos;No posee correquisitos;Ciencias del lenguaje
+CI1202;Ingles para biotecnologia i;2;3;2;CI0200,CI0202;No posee correquisitos;Ciencias del lenguaje
+IB2113;Analisis estadistico para biotecnologia;2;9;3;MA0101;No posee correquisitos;Biotecnologia
+IB2203;Anatomia vegetal;2;4;3;BI1101,BI1102;IB2204;Biotecnologia
+IB2204;Laboratorio de anatomia vegetal;2;3;1;BI1101,BI1103;IB2203;Biotecnologia
+MA1102;Calculo diferencial e integral;2;5;4;MA0101;No posee correquisitos;Matematica
+QU1104;Laboratorio de quimica basica ii;2;2;1;QU1102,QU1106;QU1107;Quimica
+QU1107;Quimica basica ii;2;4;3;QU1102,QU1107;QU1104;Quimica
+SE1200;Actividad deportiva i;2;2;0;No posee requisitos;No posee correquisitos;Cultura y deporte
+CI1203;Ingles para biotecnologia ii;3;3;2;CI1202;No posee correquisitos;Ciencias del lenguaje
+CS3301;Derecho ambiental y biotecnologico;3;2;2;CI1107;No posee correquisitos;Ciencias sociales
+IB2205;Fisiologia vegetal;3;3;3;IB2203,IB2204;IB2211;Biotecnologia
+IB2211;Laboratorio de fisiologia vegetal;3;3;2;IB2203,IB2205;IB2205;Biotecnologia
+IB2302;Laboratorio de genetica;3;3;2;BI1101,BI1102;IB2304;Biotecnologia
+IB2304;Genetica;3;4;3;BI1101,BI1103;IB2302;Biotecnologia
+QU2403;Quimica organica;3;4;3;QU1107;QU2404;Quimica
+QU2404;Laboratorio de quimica organica;3;4;2;QU1104;QU2403;Quimica
+SE1400;Actividad cultural deportiva;3;2;0;No posee requisitos;No posee correquisitos;Cultura y deporte
+FH1000;Centros de formacion humanistica;4;2;0;No posee requisitos;No posee correquisitos;Formacion humanistica
+IB2021;Sistemas bioinformaticos;4;3;2;IB2304,IB2113;No posee correquisitos;Biotecnologia
+IB3210;Sistemas ecologicos;4;3;3;IB2113;IB2021;Biotecnologia
+IB3302;Mejoramiento genetico;4;3;3;IB2302,IB2304;No posee correquisitos;Biotecnologia
+IB3404;Aplicacion de sistemas de produccion agricola;4;3;3;IB2205,IB2211;IB3405;Biotecnologia
+IB3405;Laboratorio aplicacion de sistemas de produccion agricola;4;3;2;IB2205,IB2212;IB3404;Biotecnologia
+IB3601;Bioquimica;4;3;3;QU2403,QU2404;IB3603;Biotecnologia
+IB3603;Laboratorio de bioquimica;4;3;1;QU2403,QU2405;IB3601;Biotecnologia
+CS3401;Seminario de estudios filosoficos historicos;5;3;2;CS1502;No posee correquisitos;Ciencias sociales
+IB2105;Microbiologia aplicada;5;3;3;IB3601;IB2106;Biotecnologia
+IB2106;Laboratorio de microbiologia aplicada;5;3;1;IB3603;IB2105;Biotecnologia
+IB3202;Cultivo de tejidos i;5;3;3;IB2205,IB2211;IB3203;Biotecnologia
+IB3203;Laboratorio de cultivo de tejidos i;5;4;3;IB2205,IB2212;IB3202;Biotecnologia
+IB3204;Ingenireria bioquimica;5;4;4;FI1105,IB3601,IB3603;No posee correquisitos;Biotecnologia
+IB4803;Tratamiento biotecnologico de aguas residuales;5;3;3;IB3603;IB2105,IB2106;Biotecnologia
+AE4208;Desarrollo de emprendedores;6;4;4;CS3301;No posee correquisitos;Administracion de empresas
+IB3107;Microbiologia industrial;6;3;3;IB2105,IB2106;No posee correquisitos;Biotecnologia
+IB4101;Biologia molecular aplicada;6;3;3;IB2105,IB2107;IB4106;Biotecnologia
+IB4106;Laboratorio de biologia molecular aplicada;6;4;2;IB2105,IB2108;IB4101;Biotecnologia
+IB4201;Cultivo de tejidos ii;6;3;3;IB3202,IB3203;IB4202;Biotecnologia
+IB4202;Laboratorio de cultivo de tejidos ii;6;4;2;IB3202,IB3204;IB4201;Biotecnologia
+CS4402;Seminario de estudios costarricenses;7;3;2;CS3401;No posee correquisitos;Ciencias sociales
+IB3101;Seminario taller de formulacion, evaluacion y gestacion de proyectos;7;3;3;AE4208,IB4201;No posee correquisitos;Biotecnologia
+IB4505;Sistemas biotecnologicos de produccion;7;4;4;IB3204,IB4101;No posee correquisitos;Biotecnologia
+IB6001;Electiva i;7;3;3;No posee requisitos;No posee correquisitos;Biotecnologia
+IB6002;Electiva ii;7;3;3;No posee requisitos;No posee correquisitos;Biotecnologia
+IB6003;Electiva iii;7;3;3;No posee requisitos;No posee correquisitos;Biotecnologia
+IB4001;Trabajo final de graduacion;8;0;10;IB4505;No posee correquisitos;Biotecnologia
+BL1101;Diseno de experimentos para biotecnologia;1;12;4;No posee requisitos;No posee correquisitos;Biotecnologia
+BL1102;Gestion de la calidad en procesos biotecnologicos;1;12;4;No posee requisitos;No posee correquisitos;Biotecnologia
+BL1103;Electiva i;1;3;4;No posee requisitos;No posee correquisitos;Biotecnologia
+CI1108;Destrezas comunicativas del ingles para biotecnologia i;1;9;3;No posee requisitos;No posee correquisitos;Ciencias del lenguaje
+AE1205;Habilidades gerenciales;2;12;4;No posee requisitos;No posee correquisitos;Administracion de empresas
+BL1201;Metodologias de investigacion;2;12;4;BL1101;No posee correquisitos;Biotecnologia
+BL1202;Electiva ii;2;3;4;No posee requisitos;No posee correquisitos;Biotecnologia
+CI1209;Destrezas comunicativas del ingles para biotecnologia ii;2;9;3;CI1108;No posee correquisitos;Ciencias del lenguaje
+BL2101;Electiva iii;3;3;4;No posee requisitos;No posee correquisitos;Biotecnologia
+BL2102;Trabajo final de graduacion;3;10;8;BL1101,BL1201;No posee correquisitos;Biotecnologia

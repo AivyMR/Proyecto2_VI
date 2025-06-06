@@ -1,0 +1,144 @@
+---
+title: "Proyecto 2 VDI"
+author: "Erick_Kauffmann-Aivy_Masís"
+date: "2025-06-06"
+output: html_document
+---
+## Carrera: Ingeniería en Biotecnología
+## Descripción: 
+La carrera de Biotecnología, fundada en 1997, ha sido reconocida por su alta demanda y selectividad en la admisión.
+Desde sus inicios, ha desarrollado y mantenido relaciones activas con universidades, centros de investigación y empresas nacionales e internacionales.
+La Biotecnología es una disciplina en constante evolución, aprovechando sistemas biológicos o sus derivados para resolver problemas y generar productos o servicios en campos diversos como investigación, medicina, agricultura, industria alimentaria, entre otros.
+Como persona graduada de la Ingeniería en Biotecnología, tendrás un amplio espectro de oportunidades profesionales para explorar.
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Cargar librería para leer CSV
+library(readr)
+library(tidyverse)
+library(visNetwork)
+library(DT)
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+# Leer archivo CSV (asegurate que esté en el mismo directorio o poné la ruta completa)
+# Leer el archivo CSV
+df <- read.csv("lic-biotec-completo.csv", sep = ";", encoding = "UTF-8")
+
+# Limpiar nombres de columnas: quita espacios, reemplaza caracteres problemáticos
+#names(df) <- names(df) %>%
+#  stringr::str_trim() %>%
+#  janitor::make_clean_names()
+
+df$Requisitos <- iconv(df$Requisitos, from = "latin1", to = "UTF-8", sub = "")
+df$Correquisitos <- iconv(df$Correquisitos, from = "latin1", to = "UTF-8", sub = "")
+
+df$Requisitos[is.na(df$Requisitos)] <- ""
+df$Correquisitos[is.na(df$Correquisitos)] <- ""
+
+# Mostrar nombres de columnas para revisar
+#print(colnames(df))
+
+# Mostrar las primeras filas para confirmar que se cargó bien
+#head(df)
+
+
+
+# Nodos: todos los cursos
+nodos <- df %>%
+  mutate(id = Sigla,
+         label = paste0(Sigla, "\n", Nombre),
+         title = paste0("<p><b>", Nombre, "</b><br>",
+                        "Bloque: ", Bloque, "<br>",
+                        "Horas: ", Horas, "<br>",
+                        "Créditos: ", Creditos, "<br>",
+                        "Disciplina: ", Disciplina, "</p>"),
+         # Tamaño según créditos (escala entre 15 y 50)
+         value = scales::rescale(Creditos, to = c(15,50)),
+         # Color por disciplina - definimos un vector de colores
+         color = case_when(
+           Disciplina == "Biotecnologia" ~ "#1f78b4",
+           Disciplina == "Ciencias del lenguaje" ~ "#ff7f00",
+           Disciplina == "Administracion de empresas" ~ "#e31a1c",
+           Disciplina == "Biologia" ~ "#2ca02c",
+           Disciplina == "Fisica" ~ "#9467bd",
+           Disciplina == "Ciencias sociales" ~ "#8c564b",
+           Disciplina == "Matematica" ~ "#17becf",
+           Disciplina == "Quimica" ~ "#fb9a99",
+           Disciplina == "Cultura y deporte" ~ "#f4b400",
+           Disciplina == "Formacion humanistica" ~ "#fdbf6f",
+           TRUE ~ "#d3d3d3"
+         ),
+         # Forma según bloque (semestre)
+         shape = case_when(
+           Bloque %in% c(1,2) ~ "circle",
+           Bloque %in% c(3,4) ~ "square",
+           Bloque %in% c(5,6) ~ "triangle",
+           Bloque >= 7 ~ "diamond",
+           TRUE ~ "dot"
+         )
+  ) %>%
+  select(id, label, title, value, color, shape)
+
+
+# Aristas dirigidas: requisitos - azul con flechas
+edges_req <- df %>%
+  filter(Requisitos != "No posee requisitos") %>%
+  select(Sigla, Requisitos) %>%
+  mutate(Requisitos = str_split(Requisitos, ",")) %>%
+  unnest(Requisitos) %>%
+  mutate(Requisitos = str_trim(Requisitos)) %>%
+  transmute(from = Requisitos, to = Sigla,
+            color = "blue", arrows = "to")
+edges_req <- edges_req %>% filter(from != to)
+
+# Aristas no dirigidas: correquisitos - rojo con flechas dobles
+edges_coreq <- df %>%
+  filter(Correquisitos != "No posee correquisitos") %>%
+  select(Sigla, Correquisitos) %>%
+  mutate(Correquisitos = str_split(Correquisitos, ",")) %>%
+  unnest(Correquisitos) %>%
+  mutate(Correquisitos = str_trim(Correquisitos)) %>%
+  transmute(from = Sigla, to = Correquisitos,
+            color = "red", arrows = "to")
+
+# Duplicar las aristas de correquisitos para hacerlas "bidireccionales" con flechas en ambos lados
+edges_coreq_inv <- edges_coreq %>%
+  transmute(from = to, to = from,
+            color = "red", arrows = "to")
+
+edges_coreq_full <- bind_rows(edges_coreq, edges_coreq_inv)
+edges_coreq_full <- edges_coreq_full %>% filter(from != to)
+
+# Unión total de aristas
+edges <- bind_rows(edges_req, edges_coreq_full) %>% distinct()
+
+
+visNetwork(nodos, edges, height = "800px", width = "100%") %>%
+  visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.5))) %>%
+  visGroups(groupname = "Requisito", color = "blue") %>%
+  visGroups(groupname = "Correquisito", color = "red") %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE)%>%
+  visPhysics(enabled = FALSE)%>%
+  visInteraction(navigationButtons = TRUE) %>%
+  visLegend(addNodes = data.frame(label = c("Biotecnologia", "Ciencias del lenguaje", "Administracion de empresas", "Biologia", "Física", "Ciencias sociales", "Matematica", "Quimica", "Cultura y deporte", "Formacion humanistica", "Otros"),
+                                  shape = "dot",
+                                  color = c(
+  "#1f78b4",  # Biotecnologia
+  "#ff7f00",  # Ciencias del lenguaje
+  "#e31a1c",  # Administracion de empresas
+  "#2ca02c",  # Biologia
+  "#9467bd",  # Física
+  "#8c564b",  # Ciencias sociales
+  "#17becf",  # Matematica
+  "#fb9a99",  # Quimica
+  "#f4b400",  # Cultura y deporte
+  "#fdbf6f",  # Formacion humanistica
+  "#d3d3d3"   # Otros (por defecto)
+)),
+            addEdges = data.frame(color = c("blue", "red"),
+                                  label = c("Requisito (Dirigido)", "Correquisito (No dirigido)")),
+            useGroups = FALSE)
+
+
